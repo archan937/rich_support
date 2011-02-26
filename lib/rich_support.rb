@@ -1,0 +1,3 @@
+module RichSupport
+  # Your code goes here...
+end
