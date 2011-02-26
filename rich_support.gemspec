@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "rich_support/version"
+require "rich/support/version"
 
 Gem::Specification.new do |s|
   s.name        = "rich_support"
-  s.version     = RichSupport::VERSION
+  s.version     = Rich::Support::VERSION::STRING
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Paul Engel"]
   s.email       = ["paul.engel@holder.nl"]
