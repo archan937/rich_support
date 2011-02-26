@@ -1,0 +1,42 @@
+= Rich-Support
+
+A small package of libs providing your gem Rails 2 and 3 compatibility and some core class goodies
+
+== Introduction
+
+Rich-Support is a small module of E9s (http://github.com/archan937/e9s) which provides Rails 2 and 3 compatibility to your own created gem. It also adds a small amount of handy methods to some Ruby core classes.
+
+== Contact me
+
+For support, remarks and requests please mail me at mailto:paul.engel@holder.nl.
+
+== Enrichments
+
+The all-in-one gem at – http://codehero.es/rails_gems_plugins/e9s – http://github.com/archan937/e9s
+
+=== E9s modules
+
+* Rich-Support
+  http://codehero.es
+  http://github.com/archan937/rich_support
+* Rich-CMS
+  http://codehero.es/rails_gems_plugins/rich_cms
+  http://github.com/archan937/rich_cms
+* Rich-i18n
+  http://codehero.es/rails_gems_plugins/rich_i18n
+  http://github.com/archan937/rich_i18n
+* Rich-pluralization
+  http://codehero.es/rails_gems_plugins/rich_pluralization
+  http://github.com/archan937/rich_pluralization
+
+== License
+
+Copyright (c) 2011 Paul Engel, released under the MIT license
+
+http://holder.nl - http://codehero.es - http://gettopup.com - http://twitter.com/archan937 - mailto:paul.engel@holder.nl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
