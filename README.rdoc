@@ -16,17 +16,17 @@ The all-in-one gem at – http://codehero.es/rails_gems_plugins/e9s – http://g
 
 === E9s modules
 
-* Rich-Support
-  http://codehero.es
+* Rich-Support -
+  http://codehero.es -
   http://github.com/archan937/rich_support
-* Rich-CMS
-  http://codehero.es/rails_gems_plugins/rich_cms
+* Rich-CMS -
+  http://codehero.es/rails_gems_plugins/rich_cms -
   http://github.com/archan937/rich_cms
-* Rich-i18n
-  http://codehero.es/rails_gems_plugins/rich_i18n
+* Rich-i18n -
+  http://codehero.es/rails_gems_plugins/rich_i18n -
   http://github.com/archan937/rich_i18n
-* Rich-pluralization
-  http://codehero.es/rails_gems_plugins/rich_pluralization
+* Rich-pluralization -
+  http://codehero.es/rails_gems_plugins/rich_pluralization -
   http://github.com/archan937/rich_pluralization
 
 == License
