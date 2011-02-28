@@ -1,0 +1,1 @@
+require "rich/support/activesupport/active_support/dependencies"

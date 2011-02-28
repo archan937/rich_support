@@ -1,0 +1,1 @@
+require "rich/support/core/string"
