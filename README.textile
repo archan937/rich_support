@@ -14,6 +14,12 @@ Add Rich-Support as gem dependency in your @gemspec@ file:
   s.add_dependency "rich_support"
 </pre>
 
+Require Rich-Support in your gem (e.g. in @libs/rich_cms.rb@ for the gem Rich-CMS)
+
+<pre>
+  require "rich_support"
+</pre>
+
 Your gem is now Rails 2 and 3 compatible! Cool, huh?
 
 h2. Using the Rails configuration after_initialize hook regardless of the major Rails version
