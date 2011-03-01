@@ -1,0 +1,80 @@
+h1. Rich-Support
+
+A small package of libs providing your gem Rails 2 and 3 compatibility and some core class goodies
+
+h2. Introduction
+
+Rich-Support is a small module of E9s ("http://github.com/archan937/e9s":http://github.com/archan937/e9s) which provides Rails 2 and 3 compatibility to your own created gem.<br>It also adds a small amount of handy methods to some Ruby core classes.
+
+h2. Installation
+
+Add Rich-Support as gem dependency in your @gemspec@ file:
+
+<pre>
+  s.add_dependency "rich_support"
+</pre>
+
+Your gem is now Rails 2 and 3 compatible! Cool, huh?
+
+h2. Using the Rails configuration after_initialize hook regardless of the major Rails version
+
+As calling the @after_initialize@ differs in the major Rails versions, but you can just call @Rich::Support.after_initialize@ instead as it will handle things for you:
+
+<pre>
+  Rich::Support.after_initialize do
+    register_assets
+    copy_images
+    require_models
+  end
+</pre>
+
+h2. Registering your gem controllers, views and routes in Rails 2
+
+As only Rails 3 recognizes your controllers, views and routes automatically, you will have append them in Rails 2 yourself. Fortunately with Rich::Support, you will only have to append your gem path:
+
+<pre>
+  Rich::Support.append_gem_path File.expand_path("../..", __FILE__)
+</pre>
+
+*Note*: The source file in this example is located in the @lib@ directory of the gem itself
+
+Calling @append_gem_path@ registers the following in Rails 2:
+
+* @controllers@ - Which is assumed to be located in @app/controllers@
+* @views@ - Which is assumed to be located in @app/views@
+* @routes@ - Which is assumed to be located in @config/routes.rb@
+
+h2. Contact me
+
+For support, remarks and requests please mail me at "paul.engel@holder.nl":mailto:paul.engel@holder.nl.
+
+h2. Enrichments
+
+The all-in-one gem at – "http://codehero.es/rails_gems_plugins/e9s":http://codehero.es/rails_gems_plugins/e9s – "http://github.com/archan937/e9s":http://github.com/archan937/e9s
+
+h2. E9s modules
+
+* Rich-Support <br>
+  "http://codehero.es":http://codehero.es <br>
+  "http://github.com/archan937/rich_support":http://github.com/archan937/rich_support
+* Rich-CMS <br>
+  "http://codehero.es/rails_gems_plugins/rich_cms":http://codehero.es/rails_gems_plugins/rich_cms <br>
+  "http://github.com/archan937/rich_cms":http://github.com/archan937/rich_cms
+* Rich-i18n <br>
+  "http://codehero.es/rails_gems_plugins/rich_i18n":http://codehero.es/rails_gems_plugins/rich_i18n <br>
+  "http://github.com/archan937/rich_i18n":http://github.com/archan937/rich_i18n
+* Rich-pluralization <br>
+  "http://codehero.es/rails_gems_plugins/rich_pluralization":http://codehero.es/rails_gems_plugins/rich_pluralization <br>
+  "http://github.com/archan937/rich_pluralization":http://github.com/archan937/rich_pluralization
+
+h2. License
+
+Copyright (c) 2011 Paul Engel, released under the MIT license
+
+"http://holder.nl":http://holder.nl – "http://codehero.es":http://codehero.es – "http://gettopup.com":http://gettopup.com – "http://twitter.com/archan937":http://twitter.com/archan9370 – "paul.engel@holder.nl":mailto:paul.engel@holder.nl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
