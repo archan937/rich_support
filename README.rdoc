@@ -6,6 +6,38 @@ A small package of libs providing your gem Rails 2 and 3 compatibility and some 
 
 Rich-Support is a small module of E9s (http://github.com/archan937/e9s) which provides Rails 2 and 3 compatibility to your own created gem. It also adds a small amount of handy methods to some Ruby core classes.
 
+== Installation
+
+Add Rich-Support as gem dependency in your <code>gemspec</code> file:
+
+  s.add_dependency "rich_support"
+
+Your gem is now Rails 2 and 3 compatible! Cool, huh?
+
+== Using the Rails configuration after_initialize hook regardless of the major Rails version
+
+As calling the <code>after_initialize</code> differs in the major Rails versions, you can just call <code>Rich::Support.after_initialize</code> instead. It will handle it for you:
+
+  Rich::Support.after_initialize do
+    register_assets
+    copy_images
+    require_models
+  end
+
+== Registering your gem controllers, views and routes in Rails 2
+
+As only Rails 3 recognizes your controllers, views and routes automatically, you will have append them in Rails 2 yourself. With Rich::Support, you only have to append your gem path:
+
+  Rich::Support.append_gem_path File.expand_path("../..", __FILE__)
+
+*Note*: The source file in this example is located in the <code>lib</code> directory of the gem itself
+
+Calling <code>append_gem_path</code> registers the following in Rails 2:
+
+* <code>controllers</code> - Which is assumed to be located in <code>app/controllers</code>
+* <code>views</code> - Which is assumed to be located in <code>app/views</code>
+* <code>routes</code> - Which is assumed to be located in <code>config/routes.rb</code>
+
 == Contact me
 
 For support, remarks and requests please mail me at mailto:paul.engel@holder.nl.
