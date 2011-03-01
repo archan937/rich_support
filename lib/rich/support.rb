@@ -12,7 +12,7 @@ module Rich
 
     def after_initialize(&block)
       if Rails::VERSION::MAJOR >= 3
-        config.after_initialize &block
+        ActiveSupport.on_load :after_initialize, :yield => true, &block
       else
         Rails.configuration.after_initialize &block
       end
