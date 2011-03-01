@@ -1,3 +1,5 @@
+require "active_support/dependencies"
+
 module ActiveSupport
   module Dependencies
 
