@@ -6,11 +6,32 @@ module Rich
 
           def self.included(base)
             base.extend ClassMethods
+            base.send :include, InstanceMethods
           end
 
           module ClassMethods
+            attr_accessor :_file_
+
+            def inherited(klass)
+              klass._file_ = caller.first[/^[^:]+/]
+            end
+          end
+
+          module InstanceMethods
+            def root_path
+              defined?(Rails) ? Rails.root : self.class._file_
+            end
+
+            def shared_path
+              File.expand_path("../../../shared", root_path)
+            end
+
+            def source_root
+              File.expand_path "templates", shared_path
+            end
+
             def rails_version
-              Rails.root.match(/\/rails-(\d)\//)[1].to_i
+              root_path.match(/\/rails-(\d)\//)[1].to_i
             end
 
             def mysql_password
@@ -19,9 +40,9 @@ module Rich
             end
 
             def expand_path(path)
-              path.match(Rails.root) ?
+              path.match(root_path) ?
                 path :
-                File.expand_path(path, Rails.root)
+                File.expand_path(path, root_path)
             end
 
             def original(file)

@@ -1,6 +1,5 @@
 require "thor/group"
 require "rich/support/test/application/utils"
-require "rich/support/test/application/stashing"
 require "rich/support/test/application/actions"
 
 module Rich
@@ -11,21 +10,14 @@ module Rich
         STASHED_EXT = "stashed"
 
         include Application::Utils
-        include Application::Stashing
         include Application::Actions
 
-        def initialize
+        def initialize(validate_path = true)
           super [], {}, {}
-          unless valid?
-            log "Running a Rich::Support::Test::Application instance from an invalid path (needs to match '/rails-\\d/')".red
+          if validate_path && !root_path.match(/rails-\d/)
+            log "Running a #{self.class.name} instance from an invalid path: '#{root_path}' needs to match ".red + "/rails-\\d/".yellow
             exit
           end
-        end
-
-      private
-
-        def valid?
-          Rails.root.match(/rails-\d/)
         end
 
       end
