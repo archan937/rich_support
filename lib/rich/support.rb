@@ -1,5 +1,7 @@
 module Rich
   module Support
+    autoload :Test, "rich/support/test"
+
     extend self
 
     def append_gem_path(path)
