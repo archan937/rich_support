@@ -7,20 +7,25 @@ module Rich
     module Test
       class Application < ::Thor::Group
 
-        STASHED_EXT = "stashed"
-
-        include Application::Utils
         include Application::Actions
 
-        def self.source_root
-          @source_root ||= self.new.templates_path
-        end
+        STASHED_EXT = "stashed"
 
         def initialize(validate_path = true)
           super [], {}, {}
           if validate_path && !root_path.match(/rails-\d/)
             log "Running a #{self.class.name} instance from an invalid path: '#{root_path}' needs to match ".red + "/rails-\\d/".yellow
             exit
+          end
+        end
+
+        class << self
+          def source_root
+            @source_root ||= self.new.templates_path
+          end
+
+          def setup(&block)
+            self.new.setup &block
           end
         end
 

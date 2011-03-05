@@ -15,6 +15,24 @@ module Rich
 
           module InstanceMethods
 
+            def setup(&block)
+              log "\n".ljust 145, "="
+              log "Setting up test environment for Rails #{rails_version}\n"
+              log "\n".rjust 145, "="
+
+              restore_all
+              write_all
+
+              yield self if block_given?
+
+              log "\n".rjust 145, "="
+              log "Environment for Rails #{rails_version} is ready for testing"
+              log "=" .ljust 144, "="
+
+              @prepared = true
+              run_environment
+            end
+
             def restore_all(force = nil)
               if @prepared
                 unless force
@@ -122,6 +140,20 @@ module Rich
               output = [string || action]
               output.unshift action.to_s.capitalize.ljust(10, " ") unless string.nil?
               puts output.join("  ")
+            end
+
+          private
+
+            def run_environment
+              ENV["RAILS_ENV"] = "test"
+
+              require File.expand_path("config/environment.rb", root_path)
+              require "#{"rails/" if Rails::VERSION::MAJOR >= 3}test_help"
+              Dir[File.expand_path("#{File.basename(self.class._file_, ".rb")}/**/*.rb", File.dirname(self.class._file_))].each do |file|
+                require file
+              end
+
+              puts "\nRunning Rails #{Rails::VERSION::STRING}\n\n"
             end
 
           end
