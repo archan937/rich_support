@@ -8,8 +8,9 @@ module Rich
         module Actions
 
           def self.included(base)
-            base.send :include, Thor::Actions
+            base.send :include, Utils
             base.send :include, InstanceMethods
+            base.send :include, Thor::Actions
           end
 
           module InstanceMethods
@@ -83,7 +84,7 @@ module Rich
 
             def stash(string)
               Dir[expand_path(string)].each do |file|
-                next if File.exists? stashed(file)
+                next if new_file?(file) || File.exists?(stashed(file))
                 log :stashing, original(file)
                 File.rename original(file), stashed(file)
               end
@@ -97,7 +98,7 @@ module Rich
                 Dir[File.expand_path(string, root.realpath)].each do |file|
                   next if File.directory? file
                   relative_path = Pathname.new(file).relative_path_from(root).to_s
-                  new_files << relative_path unless File.exists? stashed(relative_path)
+                  new_files << relative_path unless new_file?(expand_path(relative_path)) || File.exists?(stashed(relative_path))
                   log :generating, relative_path
                   template file, expand_path(relative_path)
                 end

@@ -44,6 +44,13 @@ module Rich
               expand_path file.match(/\.#{STASHED_EXT}$/) ? file : "#{file}.#{STASHED_EXT}"
             end
 
+            def new_file?(file)
+              return false unless File.exists? expand_path(".new_files")
+              root          = Pathname.new root_path
+              relative_path = Pathname.new(file).relative_path_from(root).to_s
+              File.readlines(expand_path(".new_files")).any?{|line| line.strip == relative_path}
+            end
+
             def rails_version
               root_path.match(/\/rails-(\d)\//)[1].to_i
             end
