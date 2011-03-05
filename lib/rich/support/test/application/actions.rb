@@ -21,6 +21,14 @@ module Rich
                   return
                 end
               end
+
+              if File.exists?(new_files = expand_path(".new_files"))
+                File.readlines(new_files).each do |line|
+                  delete line.strip
+                end
+                File.delete new_files
+              end
+
               restore "app/models/**/*.#{STASHED_EXT}"
               restore "app/views/**/*.#{STASHED_EXT}"
               restore "db/**/*.#{STASHED_EXT}"
@@ -82,13 +90,22 @@ module Rich
             end
 
             def generate(string)
+              new_files = []
+
               ["shared", "rails-#{rails_version}"].each do |dir|
                 root = Pathname.new File.expand_path(dir, templates_path)
                 Dir[File.expand_path(string, root.realpath)].each do |file|
                   next if File.directory? file
                   relative_path = Pathname.new(file).relative_path_from(root).to_s
+                  new_files << relative_path unless File.exists? stashed(relative_path)
                   log :generating, relative_path
                   template file, expand_path(relative_path)
+                end
+              end
+
+              unless new_files.empty?
+                File.open(expand_path(".new_files"), "a") do |file|
+                  file << new_files.collect{|x| "#{x}\n"}.join("")
                 end
               end
             end
