@@ -21,22 +21,25 @@ module Rich
                   return
                 end
               end
-
-              restore "app/models/**/*.rb.#{STASHED_EXT}"
-              restore "public/**/*.rb.#{STASHED_EXT}"
-              restore "test/**/*.yml.#{STASHED_EXT}"
+              restore "app/models/**/*.#{STASHED_EXT}"
+              restore "app/views/**/*.#{STASHED_EXT}"
+              restore "db/**/*.#{STASHED_EXT}"
+              restore "public/**/*.#{STASHED_EXT}"
+              restore "test/**/*.#{STASHED_EXT}"
               restore "**/*.#{STASHED_EXT}"
+              true
             end
 
             def write_all
               ["shared", "rails-#{rails_version}"].each do |dir|
-                root = Pathname.new File.join(templates_path, dir)
-                Dir[File.join(root.realpath, "/**/*")].each do |file|
+                root = Pathname.new File.expand_path(dir, templates_path)
+                Dir[File.expand_path("**/*", root.realpath)].each do |file|
                   next if File.directory? file
                   path = Pathname.new file
                   write path.relative_path_from(root).to_s
                 end
               end
+              true
             end
 
             def restore(string)
@@ -66,28 +69,27 @@ module Rich
             end
 
             def write(string)
-              Dir[expand_path(string)].each do |file|
-                next if File.exists? stashed(file)
-                stash original(file)
-                generate file
-              end
+              stash string
+              generate string
             end
 
             def stash(string)
               Dir[expand_path(string)].each do |file|
+                next if File.exists? stashed(file)
                 log :stashing, original(file)
                 File.rename original(file), stashed(file)
               end
             end
 
-            def generate(file)
-              relative_path = Pathname.new(file).relative_path_from(Pathname.new(root_path)).to_s
-
+            def generate(string)
               ["shared", "rails-#{rails_version}"].each do |dir|
-                template_path = File.join templates_path, dir, relative_path
-                next unless File.exists?(template_path)
-                log :generating, original(file)
-                template template_path, expand_path(file)
+                root = Pathname.new File.expand_path(dir, templates_path)
+                Dir[File.expand_path(string, root.realpath)].each do |file|
+                  next if File.directory? file
+                  relative_path = Pathname.new(file).relative_path_from(root).to_s
+                  log :generating, relative_path
+                  template file, expand_path(relative_path)
+                end
               end
             end
 
