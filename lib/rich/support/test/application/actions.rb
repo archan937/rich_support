@@ -87,7 +87,7 @@ module Rich
                 template_path = File.join templates_path, dir, relative_path
                 next unless File.exists?(template_path)
                 log :generating, original(file)
-                template template_path, relative_path
+                template template_path, expand_path(file)
               end
             end
 
