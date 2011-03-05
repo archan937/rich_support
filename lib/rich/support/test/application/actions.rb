@@ -1,3 +1,4 @@
+require "pathname"
 require "fileutils"
 
 module Rich
@@ -13,18 +14,6 @@ module Rich
 
           module InstanceMethods
 
-            # def prepare_database
-            #   return if @db_prepared
-            #   if @ran_generator
-            #     stash   "db/schema.rb"
-            #     execute "rake db:test:purge"
-            #     execute "RAILS_ENV=test rake db:migrate"
-            #   else
-            #     execute "rake db:test:load"
-            #   end
-            #   @db_prepared = true
-            # end
-
             def restore_all(force = nil)
               if @prepared
                 unless force
@@ -33,46 +22,30 @@ module Rich
                 end
               end
 
-              delete  "db/migrate/*.rb"
-              restore "app/models/*.rb.#{STASHED_EXT}"
-              restore "test/fixtures/*.yml.#{STASHED_EXT}"
+              restore "app/models/**/*.rb.#{STASHED_EXT}"
+              restore "public/**/*.rb.#{STASHED_EXT}"
+              restore "test/**/*.yml.#{STASHED_EXT}"
               restore "**/*.#{STASHED_EXT}"
             end
 
-            def stash_all
-              delete "db/migrate/*.rb"
-              stash  "Gemfile"
-              stash  "Gemfile.lock"
-              stash  "app/models/*.rb"
-              stash  "config/database.yml"
-              stash  "config/routes.rb"
-              stash  "test/fixtures/*.yml"
+            def write_all
+              ["shared", "rails-#{rails_version}"].each do |dir|
+                root = Pathname.new File.join(templates_path, dir)
+                Dir[File.join(root.realpath, "/**/*")].each do |file|
+                  next if File.directory? file
+                  path = Pathname.new file
+                  write path.relative_path_from(root).to_s
+                end
+              end
             end
 
             def restore(string)
               Dir[expand_path(string)].each do |file|
-                if File.exists? stashed(file)
-                  delete original(file)
-                  log :restoring, stashed(file)
-                  File.rename stashed(file), original(file)
-                end
+                next unless File.exists? stashed(file)
+                delete original(file)
+                log :restoring, stashed(file)
+                File.rename stashed(file), original(file)
               end
-            end
-
-            def stash(string)
-              Dir[expand_path(string)].each do |file|
-                unless File.exists? stashing(file)
-                  next unless template?(file)
-                  log :stashing, original(file)
-                  File.rename original(file), original(file)
-                  write file
-                end
-              end
-            end
-
-            def write(file)
-              path = expand_path file
-              template template_for(path), path
             end
 
             def delete(string)
@@ -82,8 +55,8 @@ module Rich
               end
 
               dirname = expand_path File.dirname(string)
-
               return unless File.exists?(dirname)
+
               Dir.glob("#{dirname}/*", File::FNM_DOTMATCH) do |file|
                 return unless %w(. ..).include? File.basename(file)
               end
@@ -92,9 +65,30 @@ module Rich
               Dir.delete dirname
             end
 
-            def copy(source, destination)
-              log :copying, "#{source} -> #{destination}"
-              FileUtils.cp expand_path(source), expand_path(destination)
+            def write(string)
+              Dir[expand_path(string)].each do |file|
+                next if File.exists? stashed(file)
+                stash original(file)
+                generate file
+              end
+            end
+
+            def stash(string)
+              Dir[expand_path(string)].each do |file|
+                log :stashing, original(file)
+                File.rename original(file), stashed(file)
+              end
+            end
+
+            def generate(file)
+              relative_path = Pathname.new(file).relative_path_from(Pathname.new(root_path)).to_s
+
+              ["shared", "rails-#{rails_version}"].each do |dir|
+                template_path = File.join templates_path, dir, relative_path
+                next unless File.exists?(template_path)
+                log :generating, original(file)
+                template template_path, relative_path
+              end
             end
 
             def execute(command)

@@ -12,6 +12,10 @@ module Rich
         include Application::Utils
         include Application::Actions
 
+        def self.source_root
+          @source_root ||= self.new.templates_path
+        end
+
         def initialize(validate_path = true)
           super [], {}, {}
           if validate_path && !root_path.match(/rails-\d/)

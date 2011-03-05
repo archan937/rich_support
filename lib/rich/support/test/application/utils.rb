@@ -19,15 +19,29 @@ module Rich
 
           module InstanceMethods
             def root_path
-              defined?(Rails) ? Rails.root : self.class._file_
+              defined?(Rails) ? Rails.root : File.expand_path("../..", self.class._file_)
             end
 
             def shared_path
-              File.expand_path("../../../shared", root_path)
+              File.expand_path("../../shared", root_path)
             end
 
-            def source_root
-              File.expand_path "templates", shared_path
+            def templates_path
+              File.expand_path("../../templates", root_path)
+            end
+
+            def expand_path(path)
+              Pathname.new(path).absolute? ?
+                path :
+                File.expand_path(path, root_path)
+            end
+
+            def original(file)
+              expand_path file.gsub(/\.#{STASHED_EXT}$/, "")
+            end
+
+            def stashed(file)
+              expand_path file.match(/\.#{STASHED_EXT}$/) ? file : "#{file}.#{STASHED_EXT}"
             end
 
             def rails_version
@@ -37,33 +51,6 @@ module Rich
             def mysql_password
               file = File.expand_path("mysql", shared_path)
               "#{File.new(file).read}".strip if File.exists? file
-            end
-
-            def expand_path(path)
-              path.match(root_path) ?
-                path :
-                File.expand_path(path, root_path)
-            end
-
-            def original(file)
-              file.gsub /\.#{STASHED_EXT}$/, ""
-            end
-
-            def stashed(file)
-              file.match(/\.#{STASHED_EXT}$/) ?
-                file :
-                "#{file}.#{STASHED_EXT}"
-            end
-
-            def template_for(file)
-              Dir[File.join(self.class.source_root, "/**/#{string}")].each do |file|
-                puts file
-                puts file.gsub("#{self.class.source_root}/", "")
-              end
-            end
-
-            def template?(file)
-              !!template_for(file)
             end
           end
 

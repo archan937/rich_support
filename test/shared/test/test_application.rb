@@ -1,14 +1,11 @@
 STDOUT.sync = true
 
 require "rubygems"
-require "rich_support"
+
+$:.unshift File.expand_path("../../../../../lib", __FILE__)
+require File.expand_path("../../../../../lib/rich_support", __FILE__)
 
 class TestApplication < Rich::Support::Test::Application
-
-  def test
-    stash "asdf.yml"
-  end
-
 #   class << self
 #
 #     def setup(&block)
