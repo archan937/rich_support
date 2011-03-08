@@ -1,5 +1,7 @@
 require "rich/support"
 require "rich/support/core"
+require "rich/support/actioncontroller"
 require "rich/support/activesupport"
 require "rich/support/rails"
+require "rich/support/test"
 require "rich/support/version"

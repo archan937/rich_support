@@ -1,10 +1,5 @@
-STDOUT.sync = true
+require "rubygems"
+require "gem_suit"
 
-unless defined?(Rich::Support)
-  $:.unshift File.expand_path("../../../../../lib", __FILE__)
-  require "rubygems"
-  require "rich_support"
-end
-
-class TestApplication < Rich::Support::Test::Application
+class TestApplication < GemSuit::Application
 end

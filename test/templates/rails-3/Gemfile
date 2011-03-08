@@ -6,10 +6,6 @@ gem "mysql"
 gem "rich_support", :path => File.expand_path("../../../..", __FILE__)
 
 group :test do
-  gem "thor"
   gem "shoulda"
   gem "mocha"
-  gem "capybara"
-  gem "launchy"
-  gem "hpricot"
 end
