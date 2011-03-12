@@ -25,3 +25,7 @@ module Rich
     end
   end
 end
+
+class String
+  include Rich::Support::Core::String::Colorize
+end
