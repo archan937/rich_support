@@ -2,7 +2,6 @@ source "http://rubygems.org"
 
 gem "rails", "3.0.4"
 gem "mysql"
-
 gem "rich_support", :path => File.expand_path("../../../..", __FILE__)
 
 group :test do
