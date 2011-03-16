@@ -9,14 +9,24 @@ module Rich
           def self.included(base)
             COLORS.each do |name, code|
               base.send :define_method, name do
-                colorize code
+                _colorize code
+              end
+            end
+
+            base.send :include, InstanceMethods
+          end
+
+          module InstanceMethods
+            def colorize
+              self.gsub(/\{\{(#{COLORS.keys.join("|")}):(.+)\}\}/) do |match|
+                $2.send $1
               end
             end
           end
 
         private
 
-          def colorize(color)
+          def _colorize(color)
             "\e[1m\e[#{color}m#{self}\e[0m"
           end
 
