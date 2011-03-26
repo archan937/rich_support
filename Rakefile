@@ -8,8 +8,11 @@ desc "Default: run unit tests."
 task :default => :test
 
 desc "Test Rich-Support."
-task :test do
-  system "suit test unit:all"
+Rake::TestTask.new(:test) do |t|
+  t.libs    << "lib"
+  t.libs    << "test"
+  t.pattern  = "test/**/*_test.rb"
+  t.verbose  = true
 end
 
 desc "Generate documentation for Rich-Support."
