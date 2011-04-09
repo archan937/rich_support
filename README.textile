@@ -6,6 +6,14 @@ h2. Introduction
 
 Rich-Support is a small module of E9s ("http://github.com/archan937/e9s":http://github.com/archan937/e9s) which provides Rails 2 and 3 compatibility to your own created gem.<br>It also adds a small amount of handy methods to some Ruby core classes.
 
+*Attention:* This gem does not add Rails 3 goodies to a Rails 2 application, but provides an unified interface for certain differences in implementation between Rails 2 and 3. For instance:
+
+* it provides a unified interface for the @after_initialize@ hook of the Rails application
+* it provides the @ActiveSupport::Dependencies.autoload_paths@ to be called in both Rails 2 and 3
+* it defines @String.html_safe@ if it hasn't been defined already
+
+A real world example of a Rich-Support implementation is the "Rich-CMS":https://github.com/archan937/rich_cms/tree/edge gem of which Rich-Support is extracted from.
+
 h2. Installation
 
 Add Rich-Support as gem dependency in your @gemspec@ file:
