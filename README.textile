@@ -1,12 +1,12 @@
 h1. Rich-Support
 
-A small package of libs providing your gem an unified interface for certain Rails 2 and 3 differences and some String class goodies
+A small gem providing your own gem an unified interface for certain Rails 2 and 3 differences and some String class goodies
 
 h2. Introduction
 
-Rich-Support is a small module of E9s ("http://github.com/archan937/e9s":http://github.com/archan937/e9s) providing your own created gem an unified interface for certain Rails 2 and 3 differences.<br>It also adds a small amount of handy methods to the String class.
+Rich-Support is a small module of E9s ("http://github.com/archan937/e9s":http://github.com/archan937/e9s) providing your own gem an unified interface for certain Rails 2 and 3 differences.<br>It also adds a small amount of handy methods to the String class.
 
-*Attention:* This gem does not add Rails 3 functionality to a Rails 2 application, but provides an unified interface for certain differences in implementation between Rails 2 and 3. A few examples:
+*Attention:* This gem does *NOT* add Rails 3 functionality to a Rails 2 application, but provides an unified interface for certain differences in implementation between Rails 2 and 3. A few examples:
 
 * it provides a unified interface for the @after_initialize@ hook of the Rails application
 * it provides the @ActiveSupport::Dependencies.autoload_paths@ to be called in both Rails 2 and 3
@@ -28,7 +28,7 @@ Require Rich-Support in your gem (e.g. in @libs/rich_cms.rb@ for the gem Rich-CM
   require "rich_support"
 </pre>
 
-Your gem is now Rails 2 and 3 compatible! Cool, huh?
+Your gem is now Rails 2 and 3 compliant.
 
 h2. Using the Rails configuration after_initialize hook regardless of the major Rails version
 
@@ -58,13 +58,13 @@ Calling @append_gem_path@ registers the following in Rails 2:
 * @views@ - Which is assumed to be located in @app/views@
 * @routes@ - Which is assumed to be located in @config/routes.rb@
 
-h2. A small amount of String enrichments
+h2. Some String class goodies
 
 Rich-Support adds a small amount of methods to the @String@ class:
 
 * @String.upcase_first@ which upcases the first character of a String and leaves the remainder alone unlike @String.capitalize@ which downcases it
 * @String.upcase_first!@ only returns the upcased String when it has changed otherwise it returns a @nil@ value
-* @String.copy_case@ which copies the letter casing from a passed String (e.g. @"paul".copy_case("Engel")@ returns @"Paul"@ and @"CoDe".copy_case("HERO")@ returns @"CODE"@)
+* @String.copy_case@ which copies the letter casing of a passed String (e.g. @"paul".copy_case("Engel")@ returns @"Paul"@ and @"CoDe".copy_case("HERO")@ returns @"CODE"@)
 * @String.copy_case!@ only returns the case copied String when it has changed otherwise it returns a @nil@ value
 * @String.singularize!@ and @String.pluralize!@ which (as you expected) only returns a String when it has changed otherwise a @nil@ value
 
