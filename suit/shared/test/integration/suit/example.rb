@@ -2,7 +2,7 @@ require File.expand_path("../../../suit_application.rb", __FILE__)
 
 SuitApplication.test
 
-class ExampleTest < ActionController::IntegrationTest
+class ExampleTest < GemSuit::IntegrationTest
 
   context "My example test" do
     setup do
