@@ -1,10 +1,10 @@
 h1. Rich-Support
 
-A small gem providing your own gem an unified interface for certain Rails 2 and 3 differences and some String class goodies
+A small gem making your own gem Rails 2 and 3 compliant and providing the String class a few goodies
 
 h2. Introduction
 
-Rich-Support is a small module of E9s ("http://github.com/archan937/e9s":http://github.com/archan937/e9s) providing your own gem an unified interface for certain Rails 2 and 3 differences.<br>It also adds a small amount of handy methods to the String class.
+Rich-Support is a small module of E9s ("http://github.com/archan937/e9s":http://github.com/archan937/e9s) making your own gem Rails 2 and 3 compliant. It also adds a small amount of handy methods to the String class.
 
 *Attention:* This gem does *NOT* add Rails 3 functionality to a Rails 2 application, but provides an unified interface for certain differences in implementation between Rails 2 and 3. A few examples:
 
