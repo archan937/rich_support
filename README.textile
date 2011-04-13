@@ -68,6 +68,43 @@ Rich-Support adds a small amount of methods to the @String@ class:
 * @String.copy_case!@ - Only returns the case copied String when it has changed otherwise it returns a @nil@ value
 * @String.singularize!@ and @String.pluralize!@ - Which (as you expected) only returns a String when it has changed otherwise a @nil@ value
 
+h2. Developing Rich-Support yourself
+
+1. Create your own Rich-Support fork "https://github.com/archan937/rich_support/fork":https://github.com/archan937/rich_support/fork
+2. Clone your Rich-Support fork repository
+
+<pre>
+  git clone git@github.com:<your_username>/rich_support.git && cd rich_support
+</pre>
+
+3. Setup your environment in order to use the "GemSuit":https://github.com/archan937/gem_suit tests provided within Rich-Support
+
+<pre>
+  gem install gem_suit && suit fit -v
+</pre>
+
+4. Run unit tests in both Rails 2 and 3
+
+<pre>
+  suit test unit -v
+</pre>
+
+5. Start either of the dummy Rails applications for development purposes (Rails 3 at default)
+
+<pre>
+  suit s
+</pre>
+
+To run the Rails 2 application:
+
+<pre>
+  suit s -r2
+</pre>
+
+6. *Get on programming* and send your pull request! ;)
+
+*Note*: For more information about GemSuit, please visit "its Github page":https://github.com/archan937/gem_suit.
+
 h2. Contact me
 
 For support, remarks and requests please mail me at "paul.engel@holder.nl":mailto:paul.engel@holder.nl.
