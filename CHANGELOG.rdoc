@@ -1,5 +1,5 @@
 = Rich-Support CHANGELOG
 
-== Version 0.1.0 (April 10, 2011)
+== Version 0.1.0 (April 13, 2011)
 
 * Initial release
