@@ -32,6 +32,14 @@ module Rich
             downcase == (result = pluralize).downcase   ? nil : replace(result)
           end
 
+          def singular?
+            !dup.singularize!
+          end
+
+          def plural?
+            !singular?
+          end
+
         end
       end
     end

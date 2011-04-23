@@ -46,6 +46,20 @@ module Core
         assert_equal "TeSts", "TeSt" .pluralize!
       end
 
+      test "singular?" do
+        assert "baby"    .singular?
+        assert "person"  .singular?
+        assert "question".singular?
+        assert "status " .singular?
+      end
+
+      test "plural?" do
+        assert "babies"   .plural?
+        assert "people"   .plural? unless Rails::VERSION::MAJOR < 3 # This fails in Rails < 3
+        assert "questions".plural?
+        assert "statuses" .plural?
+      end
+
     end
   end
 end
