@@ -2,7 +2,7 @@
 
 == Version 0.1.1 (April 23, 2011)
 
-* Added String.singular? and String.plural
+* Added String.singular? and String.plural?
 
 == Version 0.1.0 (April 13, 2011)
 
