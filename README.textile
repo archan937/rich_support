@@ -67,6 +67,7 @@ Rich-Support adds a small amount of methods to the @String@ class:
 * @String.copy_case@ - Copies the letter casing of a passed String (e.g. @"paul".copy_case("Engel")@ returns @"Paul"@ and @"CoDe".copy_case("HERO")@ returns @"CODE"@)
 * @String.copy_case!@ - Only returns the case copied String when it has changed otherwise it returns a @nil@ value
 * @String.singularize!@ and @String.pluralize!@ - Which (as you expected) only returns a String when it has changed otherwise a @nil@ value
+* @String.singular?@ and @String.plural?@ - Assuming that the String is a verb, it returns whether it is singular / plural or not
 
 h2. Developing Rich-Support yourself
 
