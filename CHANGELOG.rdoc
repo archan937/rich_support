@@ -1,5 +1,9 @@
 = Rich-Support CHANGELOG
 
+== Version 0.1.2 (May 15, 2011)
+
+* Using Hash.key when running Ruby 1.9.2 (which solves deprecation warning)
+
 == Version 0.1.1 (April 23, 2011)
 
 * Added String.singular? and String.plural?
